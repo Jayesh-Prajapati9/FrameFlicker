@@ -103,7 +103,7 @@ async def suggest_movies(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 def main() -> None:
     """Run the bot."""
     # Replace with your bot token
-    token = "7414428296:AAGjNvEhKBCOMmvg7ut2qWWJwwMKibNsDgQ"
+    token = "YOUR API TOKEN"
     print(f"Bot token: {token}")
     if not token:
         logger.error("Bot token not found. Please set TELEGRAM_BOT_TOKEN environment variable.")
