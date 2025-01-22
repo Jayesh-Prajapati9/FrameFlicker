@@ -20,22 +20,20 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Command handler functions
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Send a welcome message and instructions."""
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Hi! I am your Movie Bot.\n\n"
-        "Commands:\n"
+        "\nCommands:\n"
         "/movie <movie_name> - Get details about a movie\n"
-        "/genre <genre_name> - Get movie suggestions by genre\n"
-        "Example: /movie Inception or /genre Action"
+        "\n/genre <genre_name> - Get movie suggestions by genre\n"
+        "\n\nExample: /movie Inception or /genre Action"
     )
 
-async def movie_search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Search for a movie and return details."""
+async def movie_search(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text("Please provide a movie name after the /movie command.")
         return
-
+    await update.message.reply_text(f"Searching for {context.args[0]}... Please wait.")
     movie_name = ' '.join(context.args)
     try:
         movies = ia.search_movie(movie_name)
@@ -56,8 +54,7 @@ async def movie_search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         logger.error(f"Error searching for movie: {e}")
         await update.message.reply_text("Oops! Something went wrong while searching for the movie.")
 
-async def suggest_movies(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Suggest movies by genre."""
+async def suggest_movies(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
             "Please provide a genre after the /genre command. Example: /genre Action"
