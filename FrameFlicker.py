@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import (
-    Application,
+    ApplicationBuilder,
     CommandHandler,
     ContextTypes,
 )
@@ -8,6 +8,7 @@ import imdb
 import os
 import logging
 
+ 
 # Initialize IMDb instance
 ia = imdb.IMDb()
 
@@ -100,17 +101,20 @@ async def suggest_movies(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         logger.error(f"Error suggesting movies by genre: {e}")
         await update.message.reply_text("Oops! Something went wrong while fetching movie suggestions.")
 
+        # Example of setting a timezone
+    
+
+
 def main() -> None:
     """Run the bot."""
     # Replace with your bot token
-    token = "YOUR API TOKEN"
+    token = "7414428296:AAGjNvEhKBCOMmvg7ut2qWWJwwMKibNsDgQ"
     print(f"Bot token: {token}")
     if not token:
         logger.error("Bot token not found. Please set TELEGRAM_BOT_TOKEN environment variable.")
         return
-
-    # Create the application
-    application = Application.builder().token(token).build()
+    # Initialize bot with timezone
+    application = ApplicationBuilder().token(token).build()
 
     # Register handlers
     application.add_handler(CommandHandler("start", start))
